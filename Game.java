@@ -1,3 +1,7 @@
+/* Gregory Fox
+ * Software Development One
+ * 1/30/14 */
+
 import java.util.Scanner;
 
 public class Game {
@@ -6,9 +10,11 @@ public class Game {
   public static int currentLocale = 0;  // Player starts in The Lab.
   public static String command;
   public static boolean stillPlaying = true;
+  
+  public static String[] locations;  // Declare an array of type String. This is uninitialized. See init() for that.
          
   public static void main(String[] args) {
-     init();    
+     init();
      updateDisplay();
      
      // Game Loop
@@ -25,17 +31,24 @@ public class Game {
   private static void init() {
      command = new String();
      stillPlaying = true;
+     
+     // NEW
+	 // Set up the location list.
+	 locations = new String[3];
+	 locations[0] = "The Lab";
+	 locations[1] = "Dungeon";
+	 locations[2] = "TARDIS";
   }
 
   private static void updateDisplay() {
      String msg = new String();
      msg = "";
      switch (currentLocale) {
-        case 0: msg = "The Lab";
+        case 0: msg = "North America";
                 break;
-        case 1: msg = "Dungeon";
+        case 1: msg = "South America";
                 break;
-        case 2: msg = "TARDIS";
+        case 2: msg = "Antarctica";
                 break;
         
         default: msg = "currentLocale " + currentLocale + " does not compute.";
@@ -50,7 +63,7 @@ public class Game {
   }
 
   private static void navigate() {
-     if ( command.equals("north") || command.equals("n") ) {
+     if ( command.equals("north") || command.equals("n") || command.equals("N") || command.equals("North") ){
         // We are going NORTH. But from where...?
         if (currentLocale == 1) {
            currentLocale = 0;           
@@ -58,7 +71,7 @@ public class Game {
            currentLocale = 2;       
         }
 
-     } else if ( command.equals("south") || command.equals("s") ) {
+     } else if ( command.equals("south") || command.equals("s") || command.equals("S") || command.equals("South") ) {
         // We are going SOUTH. But from where...?
         if (currentLocale == 2) {
            currentLocale = 0;           
@@ -67,7 +80,7 @@ public class Game {
         }
 
         
-     } else if ( command.equals("quit") ) {
+     } else if ( command.equals("quit") || ( command.equals("Quit") || ( command.equals("end") || ( command.equals("End") || ( command.equals("finish") || ( command.equals("Finish") ) {
         stillPlaying = false;
      }
   }
